@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rocker-service-front
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rocker-service-front
+  template:
+    metadata:
+      labels:
+        app: rocker-service-front
+    spec:
+      containers:
+        - name: rocker-service-front
+          image: flipperzer0/rocker-service-front:v1
+          ports:
+            - containerPort: 80
