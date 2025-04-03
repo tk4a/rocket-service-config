@@ -1,0 +1,16 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: rocket-service-front
+spec:
+  hosts:
+    - arteemtkacheev2.fvds.ru
+  http:
+    - match:
+        - uri:
+            prefix: /
+      route:
+        - destination:
+            host: rocket-service-front
+            port:
+              number: 8088
