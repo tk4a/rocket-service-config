@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rocket-auth-service
+  labels:
+    app: rocket-auth-service
+spec:
+  replicas: 1  # Количество реплик
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: rocket-auth-service
+  template:
+    metadata:
+      labels:
+        app: rocket-auth-service
+    spec:
+      containers:
+        - name: rocket-auth-service
+          image: flipperzer0/rocket-auth-service:v1.0.0  # Замените на ваш Docker-образ
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080  # Порт, который слушает бэкенд
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+            initialDelaySeconds: 15
+            periodSeconds: 5

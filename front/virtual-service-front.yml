@@ -4,13 +4,23 @@ metadata:
   name: rocket-service-front
 spec:
   hosts:
-    - arteemtkacheev2.fvds.ru
+    - "*"
+  gateways:
+    - istio-system/rocket-gateway  # Привязка к Gateway в namespace istio-system
   http:
+    - match:
+        - uri:
+            prefix: /sign-up
+        route:
+          - destination:
+              host: rocket-auth-service.default.svc.cluster.local
+              port:
+                number: 8080
     - match:
         - uri:
             prefix: /
       route:
         - destination:
-            host: rocket-service-front
+            host: rocket-service-front.default.svc.cluster.local
             port:
-              number: 8088
+              number: 80  # Порт Service (не контейнера!)
