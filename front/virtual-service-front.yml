@@ -26,6 +26,14 @@ spec:
               number: 8080
     - match:
         - uri:
+            prefix: /actuator/prometheus
+        route:
+          - destination:
+              host: rocket-auth-service.default.svc.cluster.local
+              port:
+                number: 8080
+    - match:
+        - uri:
             prefix: /
       route:
         - destination:
